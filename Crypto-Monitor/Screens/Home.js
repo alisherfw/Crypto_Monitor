@@ -1,12 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
-
+import Header from "../Components/Header";
+import ShortPriceBox from "../Components/ShortPriceBox";
 const Home = () => {
     return (
-        <View style={styles.container}>
-            <Text style={{color: "white"}}>
-                Home
-            </Text>
-        </View>
+        <>
+            <Header title="" subtext="Dashboard" />
+            <View style={styles.container}>
+                    <ShortPriceBox />
+            </View>
+        </>
     )
 }
 
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#28282B",
+        backgroundColor: "#000119",
     }
 });
 

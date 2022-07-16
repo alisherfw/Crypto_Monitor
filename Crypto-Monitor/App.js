@@ -1,16 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
 import Home from './Screens/Home';
 import News from './Screens/News';
 import Live from './Screens/Live';
 import Settings from './Screens/Settings';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
+import Header from './Components/Header';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +17,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator initialRouteName='Home' screenOptions={ ( {route} ) => ({
         tabBarIcon: ( {focused} ) => {
-          let iconColor = focused ? '#3acbb3' : 'white';
+          let iconColor = focused ? '#77fdd8' : 'white';
           if(route.name === "Home") {
             return <AntDesign name="home" size={24} color={iconColor} />
           } else if (route.name === "Live") {
@@ -30,12 +28,15 @@ export default function App() {
             return <Feather name="settings" size={24} color={iconColor} />
           }
         },
-        tabBarActiveTintColor: '#3acbb3',
-        tabBarInactiveBackgroundColor: "#28282B",
-        tabBarActiveBackgroundColor: "#28282B",
+        tabBarActiveTintColor: '#77fdd8',
+        tabBarInactiveBackgroundColor: "#000119",
+        tabBarActiveBackgroundColor: "#000119",
         headerShown: false,
-        
-      }) } >
+        tabBarStyle: {
+          borderTopWidth: 0
+        }
+      }) }
+       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Live" component={Live} />
         <Tab.Screen name="News" component={News}/>
