@@ -9,7 +9,7 @@ const News = () => {
     const [news, setNews] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [showLimit, setShowLimit] = useState(20);
-    
+
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -50,6 +50,7 @@ const News = () => {
                         }) : <Text style={{ color: "white" }}> Loading... </Text>
 
                     }
+                    <Text style={{color: "white"}}>LoadMore</Text>
                 </ScrollView>
             </View>
         </>

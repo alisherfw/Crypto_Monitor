@@ -17,7 +17,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator initialRouteName='Home' screenOptions={ ( {route} ) => ({
         tabBarIcon: ( {focused} ) => {
-          let iconColor = focused ? '#77fdd8' : 'white';
+          let iconColor = focused ? '#90ee90' : 'white';
           if(route.name === "Home") {
             return <AntDesign name="home" size={24} color={iconColor} />
           } else if (route.name === "Live") {
@@ -28,7 +28,7 @@ export default function App() {
             return <Feather name="settings" size={24} color={iconColor} />
           }
         },
-        tabBarActiveTintColor: '#77fdd8',
+        tabBarActiveTintColor: '#90ee90',
         tabBarInactiveBackgroundColor: "#000119",
         tabBarActiveBackgroundColor: "#000119",
         headerShown: false,
