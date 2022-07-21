@@ -1,21 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from "react-native";
 import Header from "../Components/Header";
 import CoinsBox from "../Components/CoinsBox";
+import LiveLoading from "../Components/LiveLoading";
+import { Feather } from "@expo/vector-icons";
+const baseURL = "https://api.coinstats.app/public/v1/coins";
 
 const Live = () => {
 
     const [isLoading, setLoading] = useState(true);
     const [coins, setCoins] = useState();
+    const [skip, setSkip] = useState(0);
+    const [fiat, setFiat] = useState("USD");
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
 
         const fetchPrices = async () => {
-            // setLoading(true);
             try {
-                const response = await axios.get(`https://api.coinstats.app/public/v1/coins?skip=0&limit=20&currency=USD`)
+                const response = await axios.get(`${baseURL}?skip=${skip}&currency=${fiat}`)
+                // const secondResponse = await axios.get(`${baseURL}?skip=100&currency=${fiat}`)
                 setCoins(response.data.coins);
+                // setCoins([...coins, ...secondResponse.data.coins]);
             } catch (e) {
                 console.log(e)
             } finally {
@@ -25,6 +32,7 @@ const Live = () => {
         }
 
         fetchPrices();
+        
         setInterval(() => fetchPrices(), 5000)
 
     }, [])
@@ -32,6 +40,18 @@ const Live = () => {
     return (
         <>
             <Header title="Trending" subtext="Crytocurrencies" />
+            <View style={{ backgroundColor: "#000119", padding: 10, paddingTop: 0 }}>
+                <View style={styles.searchContainer}>
+                    <TextInput
+                        style={styles.searchBar}
+                        placeholder="Search"
+                        placeholderTextColor={"#999"}
+                    />
+                    <TouchableOpacity>
+                        <Feather name="search" size={24} color="#999" />
+                    </TouchableOpacity>
+                </View>
+            </View>
             <View style={styles.container}>
                 <View style={styles.tobBar}>
                     <Text style={styles.name}>
@@ -40,16 +60,16 @@ const Live = () => {
                     <View style={styles.prices}>
 
                         <View style={styles.priceDate}>
-                            <Text style={styles.name}>
+                            {/* <Text style={styles.name}>
                                 1h %
-                            </Text>
-                            <Text style={styles.name}>
+                            </Text> */}
+                            <Text style={[styles.day, { marginLeft: 110 }]}>
                                 1d %
                             </Text>
                         </View>
                         <View>
                             <Text style={styles.name}>
-                                Price
+                                Avg. Price
                             </Text>
                         </View>
                     </View>
@@ -67,9 +87,9 @@ const Live = () => {
                                 rank={item.rank}
                                 symbol={item.symbol}
                             />
-                        }) : <Text style={{ color: "white" }}>Loading...</Text>
+                        }) : <LiveLoading />
                     }
-                    <Text style={{color: "white"}}>LoadMore</Text>
+                    {/* { !isLoading ? <Text style={{color: "white"}}>LoadMore</Text> : null } */}
                 </ScrollView>
             </View>
         </>
@@ -89,9 +109,26 @@ const styles = StyleSheet.create({
         // borderBottomWidth: 1,
         borderColor: "#ccc"
     },
+    searchContainer: {
+        backgroundColor: "#000119",
+        display: "flex",
+        flexDirection: "row",
+        borderWidth: 0.5,
+        borderColor: "#555",
+        padding: 10,
+        borderRadius: 10
+    },
+    searchBar: {
+        width: "90%",
+        marginLeft: 10,
+        color: "#fff"
+    },
     name: {
         color: "#999",
         marginLeft: 50
+    },
+    day: {
+        color: "#999",
     },
     prices: {
         display: "flex",

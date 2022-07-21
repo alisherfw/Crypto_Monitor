@@ -19,13 +19,13 @@ const CoinsBox = ({ name, icon, price, priceChange1d, priceChange1h, priceChange
 
                 <View style={styles.priceBox}>
                     <View style={styles.priceDate}>
-                        <Text style={[{ color: colorHour }, styles.price1h]}>
+                        {/* <Text style={[{ color: colorHour }, styles.price1h]}>
                             {
                             colorHour === "red" ? 
                                 <Entypo name="triangle-down" size={15} color={colorHour} /> 
                                 : <Entypo name="triangle-up" size={15} color={colorHour} />
                             }{priceChange1h}%
-                        </Text>
+                        </Text> */}
                         <Text style={[{ color: colorDay }, styles.price1d]}> {
                             colorDay === "red" ? 
                                 <Entypo name="triangle-down" size={15} color={colorDay} /> 
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
     priceDate: {
-        width: 150,
+        // width: 150,
+        marginLeft: 50,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between"

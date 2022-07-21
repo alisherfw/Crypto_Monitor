@@ -3,31 +3,37 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-nati
 import Header from "../Components/Header";
 import axios from "axios";
 import NewsBox from "../Components/NewsBox";
+import LiveLoading from "../Components/LiveLoading";
 const baseURL = "https://api.coinstats.app/public/v1/news"
 const News = () => {
 
     const [news, setNews] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [showLimit, setShowLimit] = useState(20);
-
+    const [skip, setSkip] = useState(0);
 
     useEffect(() => {
-        const fetchNews = async () => {
-            try {
-                setLoading(true);
-                const response = await axios.get(`${baseURL}/latest?skip=0&limit=${showLimit}`)
-                setNews(response.data.news);
-            } catch (e) {
-                console.log(e);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchNews();
-
+        fetchNews(0);
     }, [])
 
+    const fetchNews = async (skip) => {
+        try {
+            if (!news.length) {
+                setLoading(true);
+            }
+            const response = await axios.get(`${baseURL}/latest?skip=${skip}&limit=${showLimit}`)
+            if (!news.length) {
+                setNews(response.data.news);
+            } else {
+                setNews([...news, ...response.data.news]);
+                setSkip(20);
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setLoading(false);
+        }
+    }
 
 
     return (
@@ -47,10 +53,14 @@ const News = () => {
                                 source={item.source}
                                 coins={item.coins}
                             />
-                        }) : <Text style={{ color: "white" }}> Loading... </Text>
-
+                        }) : <LiveLoading />
                     }
-                    <Text style={{color: "white"}}>LoadMore</Text>
+                    {!isLoading && skip === 0 ? <View style={styles.pageControl}>
+                        <TouchableOpacity onPress={() => fetchNews(20)}>
+                            <Text style={{ color: "#ccc" }}> Load More </Text>
+                        </TouchableOpacity>
+
+                    </View> : null}
                 </ScrollView>
             </View>
         </>
@@ -63,6 +73,11 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#000119",
         padding: 10
+    },
+    pageControl: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly"
     }
 });
 
