@@ -10,7 +10,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
+import CoinsBox from './Components/CoinsBox';
+import Details from './Screens/Details';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,8 @@ function LiveScreen() {
     }}>
       <Stack.Screen name="Live" component={Live} />
       <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name="CoinsBox" component={CoinsBox} />
+      <Stack.Screen name="Details" component={Details} />
     </Stack.Navigator>
   )
 }

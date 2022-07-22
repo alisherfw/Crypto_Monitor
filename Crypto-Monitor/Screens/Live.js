@@ -80,6 +80,8 @@ const Live = ({navigation}) => {
                                 priceChange1w={item.priceChange1w}
                                 rank={item.rank}
                                 symbol={item.symbol}
+                                id={item.id}
+                                navigation={navigation}
                             />
                         }) : <LiveLoading />
                     }

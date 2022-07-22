@@ -1,13 +1,20 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 
-const CoinsBox = ({ name, icon, price, priceChange1d, priceChange1h, priceChange1w, rank, symbol }) => {
+const CoinsBox = ({ name, id, icon, price, priceChange1d, priceChange1h, priceChange1w, rank, symbol, navigation }) => {
 
     let colorHour = priceChange1h < 0 ? "red" : "#90ee90";
     let colorDay = priceChange1d < 0 ? "red" : "#90ee90";
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Details', {
+            id: id,
+            name: name,
+            icon: icon,
+            price: price,
+            rank: rank,
+            symbol: symbol,
+        })}>
             <View style={styles.container}>
                 <View style={styles.imageName}>
                     <Image source={{ uri: icon }} style={styles.icon} />
@@ -27,17 +34,18 @@ const CoinsBox = ({ name, icon, price, priceChange1d, priceChange1h, priceChange
                             }{priceChange1h}%
                         </Text> */}
                         <Text style={[{ color: colorDay }, styles.price1d]}> {
-                            colorDay === "red" ? 
-                                <Entypo name="triangle-down" size={15} color={colorDay} /> 
+                            colorDay === "red" ?
+                                <Entypo name="triangle-down" size={15} color={colorDay} />
                                 : <Entypo name="triangle-up" size={15} color={colorDay} />
-                            }{priceChange1h}% </Text>
+                        }{priceChange1h}% </Text>
                     </View>
                     <View>
                         <Text style={[{ color: "white" }, styles.price]}> ${price.toFixed(3)} </Text>
                     </View>
                 </View>
-            </View>
+            </View >
         </TouchableOpacity>
+
     )
 }
 
