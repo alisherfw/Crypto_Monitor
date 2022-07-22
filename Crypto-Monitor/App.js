@@ -33,7 +33,7 @@ export default function App() {
           let iconColor = focused ? '#90ee90' : 'white';
           if(route.name === "Home") {
             return <AntDesign name="home" size={24} color={iconColor} />
-          } else if (route.name === "Live") {
+          } else if (route.name === "LiveScreen") {
             return <MaterialCommunityIcons name="broadcast" size={24} color={iconColor} />
           } else if (route.name === "News") {
             return <MaterialCommunityIcons name="newspaper-variant-outline" size={24} color={iconColor} />
@@ -51,7 +51,7 @@ export default function App() {
       }) }
        >
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Live" component={LiveScreen} />
+        <Tab.Screen name="LiveScreen" component={LiveScreen} />
         <Tab.Screen name="News" component={News}/>
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>

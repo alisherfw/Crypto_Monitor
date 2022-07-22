@@ -20,14 +20,11 @@ const Live = ({navigation}) => {
         const fetchPrices = async () => {
             try {
                 const response = await axios.get(`${baseURL}?skip=${skip}&currency=${fiat}`)
-                // const secondResponse = await axios.get(`${baseURL}?skip=100&currency=${fiat}`)
                 setCoins(response.data.coins);
-                // setCoins([...coins, ...secondResponse.data.coins]);
             } catch (e) {
                 console.log(e)
             } finally {
                 setLoading(false);
-                // console.log("fetching prices...")
             }
         }
 
@@ -60,9 +57,6 @@ const Live = ({navigation}) => {
                     <View style={styles.prices}>
 
                         <View style={styles.priceDate}>
-                            {/* <Text style={styles.name}>
-                                1h %
-                            </Text> */}
                             <Text style={[styles.day, { marginLeft: 110 }]}>
                                 1h %
                             </Text>
