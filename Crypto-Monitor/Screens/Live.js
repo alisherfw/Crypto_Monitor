@@ -7,7 +7,7 @@ import LiveLoading from "../Components/LiveLoading";
 import { Feather } from "@expo/vector-icons";
 const baseURL = "https://api.coinstats.app/public/v1/coins";
 
-const Live = () => {
+const Live = ({navigation}) => {
 
     const [isLoading, setLoading] = useState(true);
     const [coins, setCoins] = useState();
@@ -47,7 +47,7 @@ const Live = () => {
                         placeholder="Search"
                         placeholderTextColor={"#999"}
                     />
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('Search', {itemId: 20})}>
                         <Feather name="search" size={24} color="#999" />
                     </TouchableOpacity>
                 </View>
@@ -64,7 +64,7 @@ const Live = () => {
                                 1h %
                             </Text> */}
                             <Text style={[styles.day, { marginLeft: 110 }]}>
-                                1d %
+                                1h %
                             </Text>
                         </View>
                         <View>

@@ -30,7 +30,7 @@ const CoinsBox = ({ name, icon, price, priceChange1d, priceChange1h, priceChange
                             colorDay === "red" ? 
                                 <Entypo name="triangle-down" size={15} color={colorDay} /> 
                                 : <Entypo name="triangle-up" size={15} color={colorDay} />
-                            }{priceChange1d}% </Text>
+                            }{priceChange1h}% </Text>
                     </View>
                     <View>
                         <Text style={[{ color: "white" }, styles.price]}> ${price.toFixed(3)} </Text>

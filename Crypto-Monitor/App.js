@@ -3,14 +3,27 @@ import Home from './Screens/Home';
 import News from './Screens/News';
 import Live from './Screens/Live';
 import Settings from './Screens/Settings';
+import Search from './Screens/Search';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-import Header from './Components/Header';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function LiveScreen() {
+  return(
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Live" component={Live} />
+      <Stack.Screen name="Search" component={Search} />
+    </Stack.Navigator>
+  )
+}
 
 export default function App() {
   return (
@@ -38,7 +51,7 @@ export default function App() {
       }) }
        >
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Live" component={Live} />
+        <Tab.Screen name="Live" component={LiveScreen} />
         <Tab.Screen name="News" component={News}/>
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
