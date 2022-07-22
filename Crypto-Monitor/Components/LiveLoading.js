@@ -1,8 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import {
     Placeholder,
-    PlaceholderMedia,
-    PlaceholderLine,
     Loader
 } from "rn-placeholder";
 

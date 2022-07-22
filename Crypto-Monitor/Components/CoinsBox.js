@@ -33,10 +33,10 @@ const CoinsBox = ({ name, id, icon, price, priceChange1d, priceChange1h, priceCh
                                 : <Entypo name="triangle-up" size={15} color={colorHour} />
                             }{priceChange1h}%
                         </Text> */}
-                        <Text style={[{ color: colorDay }, styles.price1d]}> {
-                            colorDay === "red" ?
-                                <Entypo name="triangle-down" size={15} color={colorDay} />
-                                : <Entypo name="triangle-up" size={15} color={colorDay} />
+                        <Text style={[{ color: colorHour }, styles.price1d]}> {
+                            colorHour === "red" ?
+                                <Entypo name="triangle-down" size={15} color={colorHour} />
+                                : <Entypo name="triangle-up" size={15} color={colorHour} />
                         }{priceChange1h}% </Text>
                     </View>
                     <View>
