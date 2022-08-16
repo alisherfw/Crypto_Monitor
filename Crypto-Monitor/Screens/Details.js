@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import Header from "../Components/Header";
 import LiveLoading from "../Components/LiveLoading";
 import { LineChart } from "react-native-chart-kit";
@@ -28,18 +28,18 @@ const Details = (props) => {
                 const response = await axios.get(`${baseURL}?period=${period}&coinId=${id}`);
                 response.data.chart.map(item => {
                     priceChart.push(item[1]);
-                    dateChart.push(item[0]);
+                    dateChart.unshift(item[0]);
                 })
 
                 setData(priceChart.filter(function (value, index, Arr) {
                     if (period === "24h") {
-                        return index % 26 === 0;
+                        return index % 1 === 0;
                     } else if (period === "1w") {
-                        return index % 23 === 0;
+                        return index % 1 === 0;
                     } else if (period === "1m") {
-                        return index % 2 === 0;
+                        return index % 1 === 0;
                     } else if (period === "1y") {
-                        return index % 29 === 0;
+                        return index % 1 === 0;
                     }
                 }))
 
@@ -58,10 +58,9 @@ const Details = (props) => {
                 temp.map(item => {
                     // setLabel([]);
                     let epochDate = new Date(item * 1000);
-                    let date;
                     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                    ];
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
                     const weekNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     
                     if (period === "24h") {
@@ -74,14 +73,11 @@ const Details = (props) => {
                         setLabel(oldLabel => [monthNames[epochDate.getMonth()], ...oldLabel]);
                     }
                 })
-
             } catch (error) {
                 console.log(error);
             } finally {
                 setLoading(false);
             }
-            
-            // console.log(label);
         }
 
         fetchChart();
@@ -123,10 +119,12 @@ const Details = (props) => {
                                     }
                                 ]
                             }}
-                            width={Dimensions.get("window").width - 20} // from react-native
-                            height={220}
+                            width={Dimensions.get("window").width - 10} // from react-native
+                            height={250}
                             yAxisLabel="$"
                             yAxisSuffix=""
+                            withInnerLines={false}
+                            // fromZero={true}
                             yAxisInterval={2} // optional, defaults to 1
                             chartConfig={{
                                 backgroundGradientFrom: "#000119",

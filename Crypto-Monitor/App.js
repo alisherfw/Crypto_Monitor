@@ -12,6 +12,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import CoinsBox from './Components/CoinsBox';
 import Details from './Screens/Details';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
