@@ -34,6 +34,8 @@ const Live = ({navigation}) => {
 
     }, [])
 
+    // console.log(coins)
+
     return (
         <>
             <Header title="Trending" subtext="Crytocurrencies" />
@@ -81,6 +83,13 @@ const Live = ({navigation}) => {
                                 rank={item.rank}
                                 symbol={item.symbol}
                                 id={item.id}
+                                availableSupply={item.availableSupply}
+                                marketCap={item.marketCap}
+                                priceBtc={item.priceBtc}
+                                totalSupply={item.totalSupply}
+                                twitterUrl={item.twitterUrl}
+                                volume={item.volume}
+                                websiteUrl={item.websiteUrl}
                                 navigation={navigation}
                             />
                         }) : <LiveLoading />

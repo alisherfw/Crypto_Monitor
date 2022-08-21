@@ -1,10 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 
-const CoinsBox = ({ name, id, icon, price, priceChange1d, priceChange1h, priceChange1w, rank, symbol, navigation }) => {
+const CoinsBox = ({ name, id, icon, price, priceChange1d, priceChange1h, 
+    priceChange1w, rank, symbol, availableSupply, marketCap, priceBtc, totalSupply,
+    twitterUrl, volume, websiteUrl, navigation }) => {
 
     let colorHour = priceChange1h < 0 ? "red" : "#90ee90";
-    let colorDay = priceChange1d < 0 ? "red" : "#90ee90";
 
     return (
         <TouchableOpacity onPress={() => navigation.navigate('Details', {
@@ -14,6 +15,16 @@ const CoinsBox = ({ name, id, icon, price, priceChange1d, priceChange1h, priceCh
             price: price,
             rank: rank,
             symbol: symbol,
+            availableSupply: availableSupply,
+            marketCap: marketCap,
+            priceBtc: priceBtc,
+            totalSupply: totalSupply,
+            twitterUrl: twitterUrl,
+            volume: volume,
+            websiteUrl: websiteUrl,
+            priceChange1h: priceChange1h,
+            priceChange1d: priceChange1d,
+            priceChange1w: priceChange1w
         })}>
             <View style={styles.container}>
                 <View style={styles.imageName}>
