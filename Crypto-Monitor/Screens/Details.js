@@ -7,6 +7,8 @@ import { LineChart } from "react-native-chart-kit";
 
 const baseURL = "https://api.coinstats.app/public/v1/charts"
 
+
+
 const Details = (props) => {
 
     const [isLoading, setLoading] = useState(true);
@@ -14,6 +16,7 @@ const Details = (props) => {
     const dateChart = [];
     const [data, setData] = useState();
     const [label, setLabel] = useState([]);
+    const [news, setNews] = useState();
     const [period, setPeriod] = useState("24h");
     const [chartColor, setChartColor] = useState(`rgba(144, 238, 144)`);
 
@@ -34,8 +37,6 @@ const Details = (props) => {
     let priceChange1d = props.route.params.priceChange1d;
     let priceChange1w = props.route.params.priceChange1w;
 
-    let subPrice = (price % 1) * 1000;
-
 
     useEffect(() => {
         const fetchChart = async () => {
@@ -47,6 +48,9 @@ const Details = (props) => {
                     priceChart.push(item[1]);
                     dateChart.unshift(item[0]);
                 })
+
+                const newsResponse = await axios.get(`https://min-api.cryptocompare.com/data/v2/news/?categories=${id}&excludeCategories=Sponsored`);
+                // console.log(newsResponse);
 
                 let oldestPrice = priceChart[0];
                 let newestPrice = priceChart[priceChart.length - 1];
@@ -124,9 +128,6 @@ const Details = (props) => {
                 !isLoading ? <View>
 
                     <ScrollView>
-
-
-
                         <View style={styles.timeController}>
                             <TouchableOpacity onPress={() => setPeriod("24h")}>
                                 <Text style={[styles.timeGaps, {
@@ -260,31 +261,34 @@ const Details = (props) => {
                                         {intToString(totalSupply)}
                                     </Text>
                                 </View>
-                            </View>
 
-                            <View style={[styles.row, {justifyContent: "space-between", paddingHorizontal: 25, marginTop: 20}]}>
                                 <View style={styles.column}>
                                     <Text style={styles.type}>
-                                        1h:
+                                        1H:
                                     </Text>
                                     <Text style={styles.type}>
-                                        1d:
+                                        24H:
                                     </Text>
                                     <Text style={styles.type}>
-                                        1w:
+                                        7D:
                                     </Text>
                                 </View>
                                 <View style={[styles.column, { alignItems: "flex-end" }]}>
-                                    <Text style={styles.value}>
+                                    <Text style={[styles.value, { color: priceChange1h > 0 ? "#90ee90" : "red" }]}>
                                         {priceChange1h}%
                                     </Text>
-                                    <Text style={styles.value}>
+                                    <Text style={[styles.value, { color: priceChange1d > 0 ? "#90ee90" : "red" }]}>
                                         {priceChange1d}%
                                     </Text>
-                                    <Text style={styles.value}>
+                                    <Text style={[styles.value, { color: priceChange1w > 0 ? "#90ee90" : "red" }]}>
                                         {priceChange1w}%
                                     </Text>
                                 </View>
+                            </View>
+
+                            <View style={styles.row}>
+
+
                             </View>
                         </View>
                     </ScrollView>
@@ -333,11 +337,11 @@ const styles = StyleSheet.create({
     },
     type: {
         color: "#ccc",
-        fontSize: 14
+        fontSize: 12
     },
     value: {
         color: "white",
-        fontSize: 14,
+        fontSize: 12,
     },
     priceChangeContainer: {
 
